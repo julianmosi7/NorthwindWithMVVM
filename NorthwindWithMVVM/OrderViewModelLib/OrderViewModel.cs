@@ -19,7 +19,7 @@ namespace OrderViewModelLib
         {
             this.db = db;
             Orders = db.Orders.AsObservableCollection();
-            SelectedOrder = Orders.First().ShipName;
+            SelectedOrder = Orders.First().ShipName;            
         }
 
         public ObservableCollection<Order> Orders { get; private set; }
@@ -31,10 +31,11 @@ namespace OrderViewModelLib
             get => selectedOrder;
             set
             {
-                selectedOrder = value;
+                /*selectedOrder = value;
                 OrderDetails = Orders
-                    .First(x => x.ShipName == selectedOrder)
-                    .OrderDetails
+                    .First(x => x.ShipName)
+                    */
+                    
                 RaisePropertyChangedEvent(nameof(SelectedOrder));
             }
         }

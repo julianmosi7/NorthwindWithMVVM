@@ -33,7 +33,7 @@ namespace NorthwindWithMVVM
             NorthwindContext db = new NorthwindContext();
             var viewModel = new OrderViewModel(db);
             DataContext = viewModel;
-            viewModel.PropertyChanged += OnPropertyChanged;
+            viewModel.PropertyChanged += OnPropertyChanged;              
         }
 
         private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
