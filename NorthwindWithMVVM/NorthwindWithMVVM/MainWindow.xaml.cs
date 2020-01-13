@@ -1,6 +1,8 @@
 ﻿using NorthwindDbLib;
+using OrderViewModelLib;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,8 +31,14 @@ namespace NorthwindWithMVVM
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             NorthwindContext db = new NorthwindContext();
-            int i = db.Customers.Count();
-            Console.WriteLine(i);
+            var viewModel = new OrderViewModel(db);
+            DataContext = viewModel;
+            viewModel.PropertyChanged += OnPropertyChanged;
+        }
+
+        private void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            Console.WriteLine(e.PropertyName);
         }
     }
 }
