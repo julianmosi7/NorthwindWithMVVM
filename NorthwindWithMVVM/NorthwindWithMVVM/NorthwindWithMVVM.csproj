@@ -121,7 +121,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Project14\MVVMDemo\MvvmDemo\MVVM.Tools\MVVM.Tools\MVVM.Tools.csproj">
+    <ProjectReference Include="..\..\..\..\..\..\..\Downloads\MVVM.Tools%281%29\MVVM.Tools\MVVM.Tools.csproj">
       <Project>{98D33B68-EAD1-4280-99D7-B9BC03DAD05E}</Project>
       <Name>MVVM.Tools</Name>
     </ProjectReference>

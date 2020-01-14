@@ -84,6 +84,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Category.cs" />
+    <Compile Include="Custom.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="CustomerDemographic.cs" />
     <Compile Include="Employee.cs" />

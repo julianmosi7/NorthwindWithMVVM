@@ -18,23 +18,23 @@ namespace OrderViewModelLib
         public OrderViewModel(NorthwindContext db)
         {
             this.db = db;
-            Orders = db.Orders.AsObservableCollection();
-            SelectedOrder = Orders.First().ShipName;            
+            AllProducts = db.Products.ToList();
+            MinDate = DateTime.Now.AddYears(-50);
         }
 
-        public ObservableCollection<Order> Orders { get; private set; }
+        private Order selectedOrder;
 
-        private string selectedOrder;
-
-        public string SelectedOrder
+        public Order SelectedOrder
         {
             get => selectedOrder;
             set
             {
-                /*selectedOrder = value;
-                OrderDetails = Orders
-                    .First(x => x.ShipName)
-                    */
+                selectedOrder = value;
+                OrderDetails = db.Order_Details
+                    .Where(x => x.OrderID == selectedOrder.OrderID)
+                    .ToList()
+                    .AsObservableCollection();
+                SelectedOrderDate = selectedOrder.OrderDate;
                     
                 RaisePropertyChangedEvent(nameof(SelectedOrder));
             }
@@ -52,5 +52,108 @@ namespace OrderViewModelLib
             }
         }
 
+        private DateTime minDate;
+
+        public DateTime MinDate
+        {
+            get { return minDate; }
+            set 
+            {
+                minDate = value;
+                Orders = db.Orders
+                    .Where(x => x.OrderDate >= minDate)
+                    .ToList();
+                RaisePropertyChangedEvent(nameof(Orders));
+            }
+        }
+
+        private List<Order> orders;
+
+        public List<Order> Orders
+        {
+            get { return orders; }
+            set 
+            {
+                orders = value;
+                RaisePropertyChangedEvent(nameof(Orders));
+            }
+        }
+
+        private DateTime? selectedOrderDate;
+
+        public DateTime? SelectedOrderDate
+        {
+            get { return selectedOrderDate; }
+            set { selectedOrderDate = value; }
+        }
+
+        private List<Product> allProducts;
+
+        public List<Product> AllProducts
+        {
+            get { return AllProducts; }
+            private set 
+            {
+                allProducts = value;
+                RaisePropertyChangedEvent(nameof(AllProducts));
+            }
+        }
+
+        private string productname;
+
+        public string Productname
+        {
+            get { return productname; }
+            set 
+            {
+                productname = value;
+                RaisePropertyChangedEvent(nameof(Productname));
+            }
+        }
+
+        private string suppliername;
+
+        public string Suppliername
+        {
+            get { return suppliername; }
+            set 
+            { 
+                suppliername = value;
+                RaisePropertyChangedEvent(nameof(Suppliername));
+            }
+        }
+
+
+        private Order_Detail selectedOrderDetail;
+
+        public Order_Detail SelectedOrderDetail
+        {
+            get { return selectedOrderDetail; }
+            set
+            { 
+                selectedOrderDetail = value;
+                Productname = selectedOrderDetail.Product.ProductName;
+                RaisePropertyChangedEvent(nameof(SelectedOrderDetail));
+            }
+        }
+
+        private int quantity;
+
+        public int Quantity
+        {
+            get { return quantity; }
+            set { quantity = value; }
+        }
+
+        private Product selectedProduct;
+
+        public Product SelectedProduct
+        {
+            get { return selectedProduct; }
+            set 
+            { 
+                selectedProduct = value;
+            }
+        }
     }
 }
